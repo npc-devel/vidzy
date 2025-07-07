@@ -1,0 +1,55 @@
+import { VerticalBox, HorizontalBox, StyleMetrics, Palette } from "std-widgets.slint";
+
+export global st-theme {
+    in-out property<brush> clr-panel: @linear-gradient(135deg,#ffffffff,#555555ff);
+}
+
+export component StWithLabel inherits GridLayout {
+    in-out property<string> label: "";
+    Row {
+        Text { text: label; }
+    }
+    Row {
+        @children
+    }
+}
+
+
+export component StIcon inherits TouchArea {
+    in property <image> source <=> im.source;
+    width: 74px;
+    height: 74px;
+    Rectangle {
+        opacity: 1;
+        height: 100%;
+        border-radius: 5px;
+        background: st-theme.clr-panel;
+        im:= Image {
+                opacity: 0.85;
+                width: 44px;
+                height: 44px;
+            }
+    }
+}
+
+export component StToolOverlay inherits Rectangle {
+    in-out property<string> cb-handle: "st-media";
+    out property <bool> tools-hover <=> tools.has-hover;
+    in-out property align <=> layout.alignment;
+
+    callback mouse-ev(PointerEventKind,PointerEventButton,length,length);
+
+    tools:= TouchArea {
+        pointer-event(ev) => {
+            return root.mouse-ev(ev.kind,ev.button,self.mouse-x,self.mouse-y);
+        }
+        VerticalLayout {
+            alignment: LayoutAlignment.end;
+            width: 100%;
+            layout:= HorizontalLayout {
+                alignment: LayoutAlignment.center;
+                @children
+            }
+        }
+    }
+}

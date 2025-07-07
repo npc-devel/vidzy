@@ -1,0 +1,287 @@
+import "assets/Bebas_Neue.ttf";
+
+import { VerticalBox, HorizontalBox } from "std-widgets.slint";
+import { st-theme, StIcon, StToolOverlay } from "widgets/stark-ui.slint";
+
+export component App inherits Window {
+    min-width: 640px;
+    min-height: 360px;
+    max-width: 12800px;
+    max-height: 7200px;
+
+    always-on-top: true;
+
+    in-out property window_width <=> self.width;
+    in-out property window_height <=> self.height;
+    in property <bool> qmode: false;
+    pure callback engine-exec(string,string);
+    pure callback ev-call(string,PointerEventKind,PointerEventButton,length,length);
+
+    padding: 0;
+    title: "Vidzy";
+    background: #000000;
+    icon: @image-url("assets/logo.png");
+
+    states [
+        shown when ovl0.tools-hover || ovl1.tools-hover || animation-tick() < 5s : {
+            ovl0.opacity: 1;
+            ovl1.opacity: 1;
+            in {
+                animate ovl0.opacity,ovl1.opacity {
+                    duration: 50ms;
+                }
+            }
+        }
+        hidden when !ovl0.tools-hover || !ovl1.tools-hover : {
+                ovl0.opacity: 0;
+                ovl1.opacity: 0;
+                in {
+                    animate ovl0.opacity,ovl1.opacity {
+                    delay: 3s;
+                    duration: 500ms;
+                }
+            }
+        }
+    ]
+
+    GridLayout {
+        visible: qmode;
+        spacing: 0;
+        Row {
+            StToolOverlay {
+                cb-handle: "silent_1";
+                height: root.height/2;
+                width: root.width/2;
+                align: LayoutAlignment.end;
+
+                mouse-ev(kind,button,mx,my)=>{
+                    root.ev-call(self.cb-handle,kind,button,mx,my);
+                }
+                StIcon {
+                    clicked => {
+                        root.engine-exec(parent.cb-handle,"diff");
+                    }
+                    source: @image-url("assets/arrows-spin.png");
+                }
+                StIcon {
+                    clicked => {
+                        root.engine-exec(parent.cb-handle,"more");
+                    }
+                    source: @image-url("assets/asterisk.png");
+                }
+                StIcon {
+                    clicked => {
+                        root.engine-exec(parent.cb-handle,"clone");
+                    }
+                    source: @image-url("assets/heart.png");
+                }
+                Rectangle {
+                    background: #000000ff;
+                    width: 15%;
+                }
+            }
+
+            StToolOverlay {
+                cb-handle: "silent_2";
+                height: root.height/2;
+                width: root.width/2;
+                align: LayoutAlignment.end;
+
+                mouse-ev(kind,button,mx,my)=>{
+                    root.ev-call(self.cb-handle,kind,button,mx,my);
+                }
+
+                StIcon {
+                    clicked => {
+                        root.engine-exec(parent.cb-handle,"diff");
+                    }
+                    source: @image-url("assets/arrows-spin.png");
+                }
+                StIcon {
+                    clicked => {
+                        root.engine-exec(parent.cb-handle,"more");
+                    }
+                    source: @image-url("assets/asterisk.png");
+                }
+                StIcon {
+                    clicked => {
+                        root.engine-exec(parent.cb-handle,"clone");
+                    }
+                    source: @image-url("assets/heart.png");
+                }
+                Rectangle {
+                    background: #000000ff;
+                    width: 15%;
+                }
+            }
+        }
+        Row {
+            StToolOverlay {
+                cb-handle: "silent_3";
+                height: root.height/2;
+                width: root.width/2;
+                align: LayoutAlignment.end;
+
+                mouse-ev(kind,button,mx,my)=>{
+                    root.ev-call(self.cb-handle,kind,button,mx,my);
+                }
+
+                StIcon {
+                    clicked => {
+                        root.engine-exec(parent.cb-handle,"diff");
+                    }
+                    source: @image-url("assets/arrows-spin.png");
+                }
+                StIcon {
+                    clicked => {
+                        root.engine-exec(parent.cb-handle,"more");
+                    }
+                    source: @image-url("assets/asterisk.png");
+                }
+                StIcon {
+                    clicked => {
+                        root.engine-exec(parent.cb-handle,"clone");
+                    }
+                    source: @image-url("assets/heart.png");
+                }
+                Rectangle {
+                    background: #000000ff;
+                    width: 15%;
+                }
+            }
+
+            StToolOverlay {
+                cb-handle: "silent_4";
+                height: root.height/2;
+                width: root.width/2;
+                align: LayoutAlignment.end;
+
+                mouse-ev(kind,button,mx,my)=>{
+                    root.ev-call(self.cb-handle,kind,button,mx,my);
+                }
+
+                StIcon {
+                    clicked => {
+                        root.engine-exec(parent.cb-handle,"diff");
+                    }
+                    source: @image-url("assets/arrows-spin.png");
+                }
+                StIcon {
+                    clicked => {
+                        root.engine-exec(parent.cb-handle,"more");
+                    }
+                    source: @image-url("assets/asterisk.png");
+                }
+                StIcon {
+                    clicked => {
+                        root.engine-exec(parent.cb-handle,"clone");
+                    }
+                    source: @image-url("assets/heart.png");
+                }
+                Rectangle {
+                    background: #000000ff;
+                    width: 15%;
+                }
+            }
+        }
+    }
+    
+    StToolOverlay {
+        cb-handle: "full";
+        visible: !qmode;
+        height: 100%;
+        width: 100%;
+        mouse-ev(kind,button,mx,my)=>{
+            root.ev-call(self.cb-handle,kind,button,mx,my);
+        }
+    }
+
+    ovl1:= StToolOverlay {
+        y:0;
+        height: 64px;
+        width: 100%;
+        StIcon {
+            source: @image-url("assets/tv.png");
+            clicked => {
+                root.engine-exec("player-lib",0);
+            }
+        }
+        StIcon {
+            source: @image-url("assets/film.png");
+            clicked => {
+                root.engine-exec("player-lib",1);
+            }
+        }
+        StIcon {
+            source: @image-url("assets/xxx.png");
+            clicked => {
+                root.engine-exec("player-lib",2);
+            }
+        }
+        StIcon {
+            source: @image-url("assets/music.png");
+            clicked => {
+                root.engine-exec("player-lib",3);
+            }
+        }
+        StIcon {
+            clicked => {
+                root.full-screen = !root.full-screen;
+            }
+            source: @image-url("assets/toggle-full.svg");
+        }
+        StIcon {
+            clicked => {
+                root.engine-exec("app","quit");
+            }
+            source: @image-url("assets/xmark.png");
+        }
+    }
+
+    ovl0 := StToolOverlay {
+        visible: !qmode;
+        height: 64px;
+        y: root.height - self.height;
+
+        StIcon {
+            clicked => {
+                root.engine-exec("full","diff");
+            }
+            source: @image-url("assets/arrows-spin.png");
+        }
+    }
+
+
+    // tiny
+    HorizontalBox {
+        visible: false;
+        alignment: LayoutAlignment.end;
+        VerticalBox {
+            padding: 0;
+            alignment: LayoutAlignment.end;
+            width: 84px;
+
+            TouchArea {                
+                padding: 0;
+                pointer-event(ev)=>{
+                    root.ev-call("tiny",ev.kind,ev.button,self.mouse-x,self.mouse-y);
+                }
+                Rectangle {
+                    height: 84px;
+                    width: 84px;
+                    padding: 10px;
+
+                    background: #ffffffff;
+
+                    Image {
+                        opacity: 0.5;
+                        width: 64px;
+                        height: 64px;
+                        source: @image-url("assets/music.png");
+                    }
+                }
+            }
+        }
+    }
+}
+

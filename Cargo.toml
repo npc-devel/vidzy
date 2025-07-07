@@ -1,0 +1,45 @@
+[package]
+name = "vidzy"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+glow = { version = "0.16.0" }
+slint = "1.12.1"
+smol = { version = "2.0.2" }
+futures = { version = "0.3.31" }
+bytemuck = "1.23.1"
+derive_more = { version = "2.0.1",features = ["full"] }
+rand = "0.9.1"
+libmpv = { path="libmpv-rs"  }
+#anyhow = { version = "1.0.98" }
+#instant = { version = "0.1", features = ["now"] }
+#ffmpeg-the-third = { path="/home/deck/Dev/III/ffmpeg-the-third",features = ["static","build","build-license-nonfree"]}
+#cpal = "0.16.0"
+#ringbuf = "0.3.3"
+#i-slint-common = "1.12.0"
+#chrono = "0.4.39"
+#lazy_static = "1.5.0"
+#ffmpeg-the-third = { path="ffmpeg-the-third", version = "3.0.2" ,features = ["build-license-nonfree"] }
+#tinyaudio = "1.1.0"
+#git = "https://github.com/anlumo/libmpv-rs",features = ["build_libmpv"] }
+
+[build-dependencies]
+slint-build = "1.12.1"
+
+#[profile.dev]
+#opt-level = 1
+#overflow-checks = false
+
+#[profile.dev.package."*"]
+#opt-level = 1
+#overflow-checks = false
+
+[profile.release]
+opt-level = 3
+overflow-checks = false
+
+[profile.release.package."*"]
+opt-level = 3
+overflow-checks = false
+

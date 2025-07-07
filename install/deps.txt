@@ -1,0 +1,25 @@
+fedora:
+libavutil-free-devel
+libavformat-free-devel
+libavfilter-free-devel
+libavdevice-free-devel
+rust-avutil-devel
+libxkbcommon-x11
+
+exit//
+clone//
+finish time//
+word blacklist //
+mirrors
+better colors //
+show lock
+auto volume
+lib/mode switchers0
+project-rs
+history (and back)
+touchpad
+voice control
+dual audio out
+andriod
+split screen (VR)
+input combo's
